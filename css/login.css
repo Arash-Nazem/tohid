@@ -1,0 +1,454 @@
+@font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+@media screen and (width > 648px) {
+*{
+    direction: rtl;
+    user-select: none;
+    box-sizing: border-box;
+    font-family: "Koodak" , sans-serif;
+}
+.copyright{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.copyright div div {
+    margin: 1vw;
+    margin-bottom: 0;
+    font-family: "Ordibhesht";
+}
+.copyright div{
+    margin: 0vw;
+    display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    direction: ltr;
+    text-shadow: 0 0 0.5vw var(--light);
+
+}
+
+.copyright div:last-child{
+    font-size: 0.75vw;
+}
+.copyright a{
+    color: var(--light);
+    text-decoration: none;
+}
+body{
+    --main:#229494;
+    --light:#FBEFEF;
+    background-color: #229494;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FBEFEF;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35vw;
+    border-radius: 1vw;
+    box-shadow: 0 0 2vw var(--light);
+    padding:10px;
+}
+.logo{
+    width: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img{
+    position: relative;
+    height: 8vw;
+}
+.btn{
+    position: relative;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    height: 3vw;
+    border-radius: 0.2vw;
+    margin: 0.5vw;
+    box-shadow: 0 0 0.5vw var(--main);
+}
+.btn div{
+    width: 50%;
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5vw;
+        transition: 0.5s;
+    }
+.btn div:hover{
+        
+    background-color: var(--main);
+    color: var(--light);
+    text-shadow: 0 0 1vw var(--light);
+
+    }
+.active{
+    background-color: var(--main);
+    color: var(--light);
+    text-shadow: 0 0 1vw var(--light);
+}
+.container{
+    position: relative;
+    width: 80%;
+    height: 21vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.login{
+    position: relative;
+    height: 95%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    transition: 0.5s;
+    
+}
+.signup{
+
+    position: absolute;
+    height: 95%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    transition: 0.5s;
+    
+}
+form {
+    width: 90%;
+    position: relative;
+    height: 90%;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: column;
+}
+
+input::placeholder{
+        font-family: "Ordibehesht";
+        
+}
+.login input , .signup input
+{
+    font-family: sans-serif;
+    width: 100%;
+    height:1.4vw;
+    border: none;
+    outline: none;
+    padding-right: 1.5vw;
+    margin: 1vw 0 1vw 0 ;
+    background-color: transparent;
+    font-size: 1vw;
+    padding-left: 1.5vw;
+    border-bottom: 0.2vw solid var(--main);
+}
+button{
+    width:90% ;
+    height: 2.5vw;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    font-weight: bold;
+    margin-top:1.5vw ;
+    background-color: white;
+
+    box-shadow: 0 0 1vw var(--main);
+    color: var(--main);
+    transition: 0.5s;
+}
+.container button:hover {
+
+    background-color: var(--main);
+    color: var(--light);
+}
+.login-present .login{
+    width: 100%;
+}
+.login-present .signup{
+    width: 0%;
+}
+
+.signup-present .login{
+    width: 0%;
+}
+.signup-present .signup{
+    width: 100%;
+}
+form div{
+    width:90%;
+    right: 0;
+    position: relative;
+}
+.icon {
+    font-size: 1vw;
+    position: absolute;
+bottom: 1.4vw;
+    transition: 0.5s;
+
+    right:0vw;
+}
+.see-pass{
+        font-size: 1vw;
+
+bottom: 1.4vw;  
+  position: absolute;
+    left: 0;
+    transition: 0.5s;
+}
+}
+@media screen and (width <= 648px) {
+ 
+*{
+    direction: rtl;
+    user-select: none;
+    box-sizing: border-box;
+    font-family: "Koodak" , sans-serif;
+}
+
+.copyright{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.copyright div div {
+    margin: 3vw;
+    margin-bottom: 0;
+    font-family: "Ordibhesht";
+}
+.copyright div{
+    margin: 0vw;
+    display: flex;
+    flex-direction: row;
+    font-size: 3vw;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    direction: ltr;
+    text-shadow: 0 0 1vw var(--light);
+
+}
+
+.copyright div:last-child{
+    font-size: 2vw;
+}
+.copyright a{
+    color: var(--light);
+    text-decoration: none;
+}
+body{
+    --main:#229494;
+    --light:#FBEFEF;
+    background-color: #229494;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FBEFEF;
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vw;
+    border-radius: 1vw;
+    box-shadow: 0 0 2vw var(--light);
+    padding:10px;
+}
+.logo{
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img{
+    position: relative;
+    height: 15vw;
+}
+.btn{
+    position: relative;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    height: 8vw;
+    border-radius: 0.4vw;
+    margin: 1vw;
+    box-shadow: 0 0 1vw var(--main);
+}
+.btn div{
+    width: 50%;
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+        transition: 0.5s;
+    }
+.btn div:hover{
+        
+    background-color: var(--main);
+    color: var(--light);
+    text-shadow: 0 0 2vw var(--light);
+
+    }
+.active{
+    background-color: var(--main);
+    color: var(--light);
+    text-shadow: 0 0 2vw var(--light);
+}
+.container{
+    position: relative;
+    width: 80%;
+    height: 55vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.login{
+    position: relative;
+    height: 95%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    transition: 0.5s;
+    
+}
+.signup{
+    
+    position: absolute;
+    height: 95%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    transition: 0.5s;
+    
+}
+form {
+    width: 90%;
+    position: relative;
+    height: 90%;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: column;
+}
+input::placeholder{
+        font-family: "Ordibehesht";
+
+}
+.login input , .signup input
+{
+    font-family: sans-serif;
+    width: 100%;
+    display: flex0;
+    align-items: center;
+    height:3vw;
+    padding: 0;
+    border: none;
+    outline: none;
+    padding-right: 3vw;
+    margin: 2vw 0 2vw 0 ;
+    background-color: transparent;
+    font-size: 2.4vw;
+    padding-left: 3vw;
+    border-bottom: 0.25vw solid var(--main);
+}
+button{
+    width:90% ;
+    height: 5vw;
+    border: none;
+    border-radius: 1vw;
+    font-size: 2.5vw;
+    font-weight: bold;
+    margin-top:3vw ;
+    background-color: white;
+
+    box-shadow: 0 0 2vw var(--main);
+    color: var(--main);
+    transition: 0.5s;
+}
+.container button:hover {
+
+    background-color: var(--main);
+    color: var(--light);
+}
+.login-present .login{
+    width: 100%;
+}
+.login-present .signup{
+    width: 0%;
+}
+
+.signup-present .login{
+    width: 0%;
+}
+.signup-present .signup{
+    width: 100%;
+}
+form div{
+    width:90%;
+    right: 0;
+    height: max-content;
+    position: relative;
+
+}
+.icon {
+    font-size: 2vw;
+    position: absolute;
+    bottom: 2.8vw;
+    right:0vw;
+}
+.see-pass{
+    font-size: 2vw;
+bottom: 2.8vw;    position: absolute;
+    left: 0;
+    transition: 1s;
+}
+}
