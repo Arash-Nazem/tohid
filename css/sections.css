@@ -38,6 +38,10 @@
     height: 100%;
 }
 
+.slide img {
+    width: 100%;
+}
+
 .blue { background: blue; }
 .red { background: red; }
 .green { background: green; }
@@ -189,6 +193,9 @@
 .slide {
     width: 100vw;
     height: 100%;
+}
+.slide img {
+    width: 100%;
 }
 
 .blue { background: blue; }
