@@ -1,0 +1,287 @@
+@media screen and (width>=648px) {
+    @font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+*{
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background-color: var(--main);
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+        --main:#229494;
+    --light:#FBEFEF;
+    box-shadow: 0 0 0.5vw var(--main);
+    direction: rtl;
+}
+header{
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 222222;
+    height: 5vw;
+    background-color: var(--light);
+    padding: 0;
+    margin: 0;
+    
+    
+}
+nav{
+    top: 0;
+    font-family: Koodak;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+padding: 0.5vw;
+}
+.logo{
+    width: 20%;
+    height: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img{
+    text-shadow: 0 0 0.2vw var(--light);
+    height: 4vw;
+}
+
+nav div:nth-child(2){
+
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+nav div:nth-child(2) a{
+
+    text-decoration: none;
+    font-size: 1.5vw;
+    color: #229494;
+    transition: 0.5s;
+}
+nav div:nth-child(2) a:hover{
+    color: black;
+ 
+}
+nav div:nth-child(3){
+    width: 20%;
+
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.socials ul{
+    display:  flex;
+    align-items: center;
+    height: 2.5vw;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+}
+
+.socials li {
+        display:  flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1vw 0 1vw;
+    padding: 0;
+    width: 25%;
+    font-size: 2vw;
+    color: var(--main);
+}
+.socials i {
+    color: var(--main);
+    transition: 0.5s;
+}
+
+.socials i:hover {
+    color: var(--main);
+    scale: 1.2;
+}
+.email {
+    width: 20%;
+    background-color: #229494;
+    display: flex;
+    padding: 0;
+    border-radius: 0.5vw;
+    align-items: center;
+    font-size: 1vw;
+    justify-content: center;
+    font-family: Ordibehesht;
+    box-shadow: 0 0 0.2vw 0.2vw var(--main) ;
+    color: var(--light);
+    transition: 0.5s;
+    
+}
+.email.email:hover{
+    box-shadow: 0 0 0.3vw 0.3vw var(--main) ;
+    
+}
+
+
+
+}
+
+@media screen and (width<648px) {
+ @font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+*{
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background-color: var(--main);
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+        --main:#229494;
+    --light:#FBEFEF;
+    box-shadow: 0 0 0.5vw var(--main);
+    direction: rtl;
+}
+header{
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 222222;
+    height: 8vw;
+    background-color: var(--light);
+    padding: 0;
+    margin: 0;
+    
+    
+}
+nav{
+    top: 0;
+    font-family: Koodak;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+padding: 1.5vw;
+}
+.logo{
+    width: 20%;
+    height: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo img{
+    text-shadow: 0 0 0.2vw var(--light);
+    height: 5vw;
+}
+
+nav div:nth-child(2){
+
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+nav div:nth-child(2) a{
+
+    text-decoration: none;
+    font-size: 2.5vw;
+    color: #229494;
+    transition: 0.5s;
+}
+nav div:nth-child(2) a:hover{
+
+    text-decoration: none;
+    font-size: 2.5vw;
+    color: black;
+}
+nav div:nth-child(3){
+    width: 20%;
+
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.socials ul{
+    display:  flex;
+    align-items: center;
+    height: 5vw;
+    position: absolute;
+    top: 2Svw;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    margin-left: 4vw;
+    list-style: none;
+
+}
+
+.socials li {
+        display:  flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1vw 0 1vw;
+    padding: 0;
+    width: 25%;
+    font-size: 4vw;
+    color: var(--main);
+    
+}
+.socials i {
+    color: var(--main);
+    transition: 0.5s;
+}
+
+.socials i:hover {
+    color: var(--main);
+    scale: 1.2;
+}
+.email {
+    width: 20%;
+    background-color: #229494;
+    display: flex;
+    padding: 0;
+    border-radius: 0.5vw;
+    align-items: center;
+    font-size: 1.5vw;
+    justify-content: center;
+    font-family: Ordibehesht;
+    box-shadow: 0 0 0.2vw 0.2vw var(--main) ;
+    color: var(--light);
+    transition: 0.5s;
+    
+}
+.email.email:hover{
+    box-shadow: 0 0 0.3vw 0.3vw var(--main) ;
+    
+}
+
+
+   
+}

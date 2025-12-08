@@ -228,7 +228,81 @@ bottom: 1.4vw;
     left: 0;
     transition: 0.5s;
 }
+.callback{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 17.5vw;
+min-height: 4vw;
+    background-color: red;
+    box-shadow: 0 0 0.25vw 0.25vw red;
+    margin: 0.5vw;
+    border-radius: 0.5vw;
+    padding-left:0.25vw ;
+    overflow: hidden;
+    padding-right:0.5vw ;
+    animation: errorhider 3s 2s forwards;
 }
+.callback::after{
+    content: "";
+    width: 17.5vw;
+    height: 0.25vw;
+    background-color: var(--light);
+    position: absolute;
+    top: 0;
+    opacity: 1;
+    left: 0.5vw;
+    animation: errortimerhider 5s forwards;
+}
+@keyframes errortimerhider {
+    0%{
+        width: 17.5vw;
+    }
+    100%{
+        width: 0;
+    }
+}
+@keyframes errorhider {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.error{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    
+}
+.error i{
+    width: 1.5vw;
+    font-size: 1.5vw;
+    color: var(--light);
+}
+.error div{
+    color: var(--light);
+    font-family: Koodak;
+    width: 31vw;
+}
+.error div p{
+    width: 15vw;
+    color: var(--light);
+    font-family: Koodak;
+    word-break: normal;
+}   
+}
+
+
+
+
+
+
+
+
 @media screen and (width <= 648px) {
  
 *{
@@ -252,7 +326,7 @@ bottom: 1.4vw;
     margin: 0vw;
     display: flex;
     flex-direction: row;
-    font-size: 3vw;
+    font-size: 2.5vw;
     align-items: center;
     justify-content: center;
     color: var(--light);
@@ -450,5 +524,72 @@ form div{
 bottom: 2.8vw;    position: absolute;
     left: 0;
     transition: 1s;
+}
+.callback{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 35vw;
+min-height: 8vw;
+    background-color: red;
+    box-shadow: 0 0 0.5vw 0.5vw red;
+    margin: 1vw;
+    border-radius: 1vw;
+    padding-left:0.5vw ;
+    overflow: hidden;
+    padding-right:1vw ;
+    animation: errorhider 3s 2s forwards;
+}
+.callback::after{
+    content: "";
+    width: 35vw;
+    height: 0.5vw;
+    background-color: var(--light);
+    position: absolute;
+    top: 0;
+    opacity: 1;
+    left: 1vw;
+    animation: errortimerhider 5s forwards;
+}
+@keyframes errortimerhider {
+    0%{
+        width: 35vw;
+    }
+    100%{
+        width: 0;
+    }
+}
+@keyframes errorhider {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.error{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    
+}
+.error i{
+    width: 3vw;
+    font-size: 3vw;
+    color: var(--light);
+}
+.error div{
+    color: var(--light);
+    font-family: Koodak;
+    width: 31vw;
+}
+.error div p{
+    width: 30.5s
+    vw;
+    color: var(--light);
+    font-family: Koodak;
+    word-break: normal;
 }
 }

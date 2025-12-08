@@ -37,3 +37,12 @@ document.querySelectorAll(".see-pass").forEach(e=>{
         }
     })
 })
+
+
+
+let err=document.querySelector(".callback")
+if(err){
+    setTimeout(()=>{
+        err.remove();
+    },5500)
+}
