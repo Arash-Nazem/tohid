@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/viewer.css">
+</head>
+<body>
+      <div class="card" style="text-align: center; padding: 60px 20px;">
+        <h1 style="color: #e74c3c; margin-bottom: 20px;">⚠️ Stream Not Available</h1>
+        <p style="color: #95a5a6; font-size: 18px;">{{ error }}</p>
+    </div>
+    <div class="data" style="max-width: 1280px; margin: 0 auto;">
+        <div style="margin-bottom: 20px;">
+            <h1 style="color: #00adb5; margin-bottom: 10px;">{{ stream.title }}</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>👤</span>
+                    <span>{{ stream.host.username }}</span>
+                </div>
+                <div class="stat-item">
+                    <span>👁️</span>
+                    <span id="viewerCount">{{ stream.current_viewers }} watching</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Video Container -->
+        <div id="videoContainer">
+            <div class="status-badge">
+                <div class="pulse"></div>
+                <span>LIVE</span>
+            </div>
+            
+            <div id="loadingOverlay" class="loading-overlay">
+                <div class="spinner"></div>
+                <p style="margin-top: 20px; font-size: 16px;">Connecting to stream...</p>
+            </div>
+            
+            <video id="remoteVideo" autoplay playsinline controls style="display: none;"></video>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+            <h3 style="color: #00adb5; margin-bottom: 10px;">About This Stream</h3>
+            <p style="color: #95a5a6;">{{ stream.description }}</p>
+        </div>
+        
+        <div id="connectionStatus" style="margin-top: 20px; padding: 15px; background: #1a1a2e; border-radius: 6px; color: #95a5a6; display: none;">
+            <span id="statusText">Connecting...</span>
+        </div>
+    </div>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/livekit-client/2.15.7/livekit-client.umd.js"></script>
+    <script src="./js/viewrs.js"></script>
+</body>
+</html>

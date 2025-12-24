@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="./css/host.css">
+</head>
+<body>
+
+<div class="data" style="max-width: 1280px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div>
+            <h1 style="color: #00adb5; margin-bottom: 10px;">{{ stream.title }}</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>👁️</span>
+                    <span id="viewerCount">{{ stream.current_viewers }} watching</span>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'host_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    
+    <!-- Video Container -->
+    <div id="videoContainer">
+        <div class="status-indicator" id="statusIndicator" style="display: none;">
+            <div class="pulse"></div>
+            <span>LIVE</span>
+        </div>
+        <video id="localVideo" autoplay muted playsinline></video>
+    </div>
+    
+    <!-- Stream Controls -->
+    <div class="controls">
+        <button id="toggleVideo" class="control-btn active" onclick="toggleVideo()">
+            📹 Camera On
+        </button>
+        <button id="toggleAudio" class="control-btn active" onclick="toggleAudio()">
+            🎤 Mic On
+        </button>
+        <button id="startStream" class="control-btn" style="background: #00adb5; color: white;" onclick="startStream()">
+            ▶️ Start Streaming
+        </button>
+    </div>
+    
+    <!-- Stream Info -->
+    <div class="info-panel">
+        <h3 style="color: #229494; margin-bottom: 15px;">Share Your Stream</h3>
+        <div style="background: #229494; padding: 16px; border-radius: 6px;">
+            <label style="display: block; margin-bottom: 8px; color: #22949495a5a6; font-size: 14px;">
+                Public Watch URL:
+            </label>
+            <div style="display: flex; gap: 10px;">
+                <input 
+                    type="text" 
+                    id="watchUrl" 
+                    value="{{ watch_url }}"
+                    readonly
+                    style="flex: 1; padding: 10px; background: #1a1a2e; border: 1px solid #16213e; border-radius: 4px; color: #e0e0e0;"
+                >
+                <button onclick="copyUrl()" class="btn btn-secondary">Copy</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="connectionStatus" style="margin-top: 20px; padding: 15px; background: #1a1a2e; border-radius: 6px; color: #95a5a6; display: none;">
+        <span id="statusText">Connecting...</span>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/livekit-client/2.15.7/livekit-client.umd.js"></script>
+<script src="./js/streamer.js"></script>
+</body>
+</html>

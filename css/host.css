@@ -1,0 +1,108 @@
+
+@font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+    body{
+      background-color: #229494;
+      font-family: Ordibehesht;
+    }
+    #videoContainer {
+        position: relative;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        aspect-ratio: 16/9;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    #localVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .control-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+    
+    .control-btn.active {
+        background: #229494;
+        color: white;
+    }
+    
+    .control-btn.inactive {
+        background: #e74c3c;
+        color: white;
+    }
+    
+    .status-indicator {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 8px 16px;
+        background: rgba(231, 76, 60, 0.9);
+        color: white;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn{
+      border-radius:5px ;
+      padding: 5px;
+      box-shadow: 0 0 2px 2px #229494;
+      height: 50px;
+      background-color: #229494;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .pulse {
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+    
+    .info-panel {
+
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    .data{
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 5px 5px white;
+    }

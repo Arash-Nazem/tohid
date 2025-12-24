@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        @font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+        body{
+            background-color:#229494 ;
+            font-family: Ordibehesht;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    #videoContainer {
+        position: relative;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        aspect-ratio: 16/9;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #remoteVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #00adb5;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .status-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 8px 16px;
+        background: rgba(231, 76, 60, 0.9);
+        color: white;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .pulse {
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+    .card{
+                max-width: 1280px;
+
+        width: 80%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 10px white;
+    }
+    .data{
+        box-shadow: 0 0 10px 10px white;
+        width: 90%;
+        background-color: white;
+        border-radius: 10px;
+    }
+</style>
+      <div class="card" style="text-align: center; padding: 60px 20px;">
+        <h1 style="color: #e74c3c; margin-bottom: 20px;">⚠️ Stream Not Available</h1>
+        <p style="color: #95a5a6; font-size: 18px;">{{ error }}</p>
+    </div>
+    <div class="data" style="max-width: 1280px; margin: 0 auto;">
+        <div style="margin-bottom: 20px;">
+            <h1 style="color: #00adb5; margin-bottom: 10px;">{{ stream.title }}</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>👤</span>
+                    <span>{{ stream.host.username }}</span>
+                </div>
+                <div class="stat-item">
+                    <span>👁️</span>
+                    <span id="viewerCount">{{ stream.current_viewers }} watching</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Video Container -->
+        <div id="videoContainer">
+            <div class="status-badge">
+                <div class="pulse"></div>
+                <span>LIVE</span>
+            </div>
+            
+            <div id="loadingOverlay" class="loading-overlay">
+                <div class="spinner"></div>
+                <p style="margin-top: 20px; font-size: 16px;">Connecting to stream...</p>
+            </div>
+            
+            <video id="remoteVideo" autoplay playsinline controls style="display: none;"></video>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+            <h3 style="color: #00adb5; margin-bottom: 10px;">About This Stream</h3>
+            <p style="color: #95a5a6;">{{ stream.description }}</p>
+        </div>
+        
+        <div id="connectionStatus" style="margin-top: 20px; padding: 15px; background: #1a1a2e; border-radius: 6px; color: #95a5a6; display: none;">
+            <span id="statusText">Connecting...</span>
+        </div>
+    </div>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/livekit-client/2.15.7/livekit-client.umd.js"></script>
+    <script>
+        const roomId = "{{ room_id }}";
+        const livekitUrl = "{{ livekit_url }}";
+        
+        let room = null;
+        
+        // Connect to stream as viewer
+        async function connectAsViewer() {
+            try {
+                showStatus('Connecting to stream...');
+                
+                // Get guest token from Django
+                const response = await fetch(`/api/token/guest/${roomId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to connect');
+                }
+                
+                const data = await response.json();
+                
+                // Create room instance
+                room = new LivekitClient.Room({
+                    adaptiveStream: true,
+                    dynacast: true,
+                });
+                
+                // Set up event listeners
+                room.on(LivekitClient.RoomEvent.Connected, () => {
+                    console.log('Connected to room as viewer');
+                    showStatus('Connected to stream', 'success');
+                });
+                
+                room.on(LivekitClient.RoomEvent.TrackSubscribed, (track, publication, participant) => {
+                    console.log('Track subscribed:', track.kind);
+                    
+                    if (track.kind === LivekitClient.Track.Kind.Video) {
+                        // Attach video track to video element
+                        const videoElement = document.getElementById('remoteVideo');
+                        track.attach(videoElement);
+                        
+                        // Hide loading overlay and show video
+                        document.getElementById('loadingOverlay').style.display = 'none';
+                        videoElement.style.display = 'block';
+                        
+                        showStatus('Watching live stream', 'success');
+                    }
+                });
+                
+                room.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track) => {
+                    console.log('Track unsubscribed:', track.kind);
+                    track.detach();
+                });
+                
+                room.on(LivekitClient.RoomEvent.ParticipantConnected, () => {
+                    updateViewerCount();
+                });
+                
+                room.on(LivekitClient.RoomEvent.ParticipantDisconnected, () => {
+                    updateViewerCount();
+                });
+                
+                room.on(LivekitClient.RoomEvent.Disconnected, (reason) => {
+                    console.log('Disconnected from room:', reason);
+                    showStatus('Stream ended or connection lost', 'error');
+                    document.getElementById('remoteVideo').style.display = 'none';
+                    document.getElementById('loadingOverlay').style.display = 'flex';
+                    document.getElementById('loadingOverlay').innerHTML = 
+                        '<h2 style="color: #e74c3c;">Stream Ended</h2>' +
+                        '<p style="margin-top: 10px;">The host has ended the stream.</p>';
+                });
+                
+                // Connect to room
+                await room.connect(data.url, data.token);
+                
+                // Update viewer count
+                updateViewerCount();
+                
+            } catch (error) {
+                console.error('Failed to connect:', error);
+                showStatus(`Failed to connect: ${error.message}`, 'error');
+                document.getElementById('loadingOverlay').innerHTML = 
+                    '<h2 style="color: #e74c3c;">Connection Failed</h2>' +
+                    '<p style="margin-top: 10px;">' + error.message + '</p>' +
+                    '<button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #00adb5; color: white; border: none; border-radius: 4px; cursor: pointer;">Retry</button>';
+            }
+        }
+        
+        // Update viewer count
+function updateViewerCount() {
+    if (!room) return;
+
+    let viewerCount = 0;
+
+    // room.participants یک Map<string, RemoteParticipant> هست
+    room.participants.forEach(participant => {
+        // host با identity که با 'host_' شروع می‌شه شناخته می‌شه
+        if (!participant.identity.startsWith('host_')) {
+            viewerCount++;
+        }
+    });
+
+    // localParticipant (خود viewer) رو هم در نظر نگیریم (اختیاری)
+    // چون guest identity معمولاً guest_xxx هست، اما host رو فیلتر کردیم کافیه
+
+    document.getElementById('viewerCount').textContent = `${viewerCount} watching`;
+}
+        
+        // Show status message
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('connectionStatus');
+            const statusText = document.getElementById('statusText');
+            
+            statusText.textContent = message;
+            statusEl.style.display = 'block';
+            
+            if (type === 'success') {
+                statusEl.style.background = '#27ae60';
+                statusEl.style.color = 'white';
+            } else if (type === 'error') {
+                statusEl.style.background = '#e74c3c';
+                statusEl.style.color = 'white';
+            } else {
+                statusEl.style.background = '#1a1a2e';
+                statusEl.style.color = '#95a5a6';
+            }
+            
+            // Auto-hide success messages after 3 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', async () => {
+            if (room) {
+                await room.disconnect();
+            }
+        });
+        
+        // Auto-connect when page loads
+        connectAsViewer();
+    </script>
+</body>
+</html>

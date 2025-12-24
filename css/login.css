@@ -6,7 +6,7 @@ src: url("/fonts/B\ Koodak\ Bold_0.ttf");
 font-family: Ordibehesht;
 src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
 }
-@media screen and (width > 648px) {
+@media screen and (width > 860px) {
 *{
     direction: rtl;
     user-select: none;
@@ -303,7 +303,7 @@ min-height: 4vw;
 
 
 
-@media screen and (width <= 648px) {
+@media screen and (width <= 860px) {
  
 *{
     direction: rtl;
@@ -586,8 +586,8 @@ min-height: 8vw;
     width: 31vw;
 }
 .error div p{
-    width: 30.5s
-    vw;
+    width: 30.5vw;
+    font-size: vw;
     color: var(--light);
     font-family: Koodak;
     word-break: normal;

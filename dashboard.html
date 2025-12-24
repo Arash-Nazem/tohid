@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <style>
+
+@font-face {
+font-family: Koodak;
+src: url("/fonts/B\ Koodak\ Bold_0.ttf");
+}
+@font-face {
+font-family: Ordibehesht;
+src: url("/fonts/A\ Ordibehesht\ shablon.TTF");
+}
+        button{
+            font-family: Koodak !important;
+        }
+        body{
+            font-family: Ordibehesht;
+            background-color: #229494;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        
+    </style>
+<h1 style="margin-bottom: 30px; color: white;">Streaming Dashboard</h1>
+
+    <div class="card" style="width: 100%;max-width: 1280px; background: white; border-radius: 5px; box-shadow: 0 0 5px 5px white;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+            <div>
+                <h2 style="color: #00adb5; margin-bottom: 10px;">{{ active_stream.title }}</h2>
+                <span class="status-badge status-{{ active_stream.status }}">
+                    {% if active_stream.status == 'live' %}● LIVE{% else %}○ {{ active_stream.status|upper }}{% endif %}
+                </span>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span>👁️</span>
+                        <span>{{ active_stream.current_viewers }} watching</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>📊</span>
+                        <span>{{ active_stream.total_viewers }} total views</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            <p style="color: #95a5a6; margin-bottom: 20px;">{{ active_stream.description }}</p>
+        
+        <div style="background: #229494; padding: 16px; border-radius: 6px; margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; color: black; font-weight: 500;">
+                Public Watch URL:
+            </label>
+            <div style="display: flex; gap: 10px;">
+                <input 
+                    type="text" 
+                    id="watchUrl" 
+                    value="{{ request.scheme }}://{{ request.get_host }}{{ active_stream.public_watch_url }}"
+                    readonly
+                    style="flex: 1; padding: 10px; background: #1a1a2e; border: 1px solid #16213e; border-radius: 4px; color: #e0e0e0;"
+                >
+                <button style=" border-radius: 2px;border: none;" onclick="copyUrl()" class="btn btn-secondary">Copy</button>
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <a href="{% url 'host_stream' active_stream.room_id %}" class="btn">
+            </a>
+            
+            <form method="post" style="display: inline;">
+                <input type="hidden" name="action" value="end_stream">
+                <button type="submit" style="height: 40px;font-size: 25px; background-color: #229494;padding: 5px;border: none; border-radius: 3px;color: white;" class="btn btn-danger" onclick="return confirm('Are you sure you want to end this stream?')">
+                    End Stream
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card" style="background-color: white; width: 100%; max-width: 1280px;border-radius:5px ;box-shadow: 0 0 5px 5px white;padding: 5px; box-sizing: border-box; margin-top: 20px;">
+        <h2 style="color: #00adb5; margin-bottom: 20px;">Create New Stream</h2>
+        
+        <form method="post">
+            <input type="hidden" name="action" value="create_stream">
+            
+            <div class="form-group">
+                <label for="title">Stream Title</label>
+                <input 
+                    style="width: 70%; font-size: 25px;"
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    required
+                    placeholder="Enter stream title"
+                    value="Live Stream"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description (optional)</label>
+                <textarea 
+                                    style="width: 70%; font-size: 25px;resize: none;"
+
+                    id="description" 
+                    name="description" 
+                    rows="3"
+                    placeholder="Describe your stream..."
+                ></textarea>
+            </div>
+            
+            <button type="submit" style="background-color: #229494;height: 40px; font-size: 25px; padding: 5px;border: none; border-radius: 3px;color: white;" class="btn">Create Stream</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2 style="color: white; margin-bottom: 20px;">Past Streams</h2>
+        
+        <div style="display: grid; gap: 15px;">
+                <div style=" width: 100%; max-width: 1280px;padding: 16px; background: white; border-radius: 6px; border: 1px solid white;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h3 style="color: black; margin-bottom: 8px;">{{ stream.title }}</h3>
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <span>📊</span>
+                                    <span>{{ stream.total_viewers }} viewers</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span>📅</span>
+                                    <span>{{ stream.created_at|date:"M d, Y" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="status-badge status-ended">ENDED</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+<script>
+function copyUrl() {
+    const urlInput = document.getElementById('watchUrl');
+    urlInput.select();
+    urlInput.setSelectionRange(0, 99999); // For mobile devices
+    
+    navigator.clipboard.writeText(urlInput.value).then(() => {
+        alert('URL copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+</script>
+</body>
+</html>
